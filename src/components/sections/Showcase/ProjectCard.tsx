@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import styles from './Showcase.module.css';
-import { MousePointer2, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface Project {
     id: number;

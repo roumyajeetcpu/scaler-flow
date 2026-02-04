@@ -7,7 +7,6 @@ import { contactSchema, ContactFormData } from '@/lib/validations/contact';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
-import { cn } from '@/lib/utils';
 import styles from './Contact.module.css';
 import confetti from 'canvas-confetti';
 import { Mail, MapPin, Linkedin, Loader2, CheckCircle2 } from 'lucide-react';
@@ -80,9 +79,9 @@ export const Contact = () => {
 
             <div className={styles.container}>
                 <div>
-                    <h2 className={styles.heading}>Let's Build Something<br />Extraordinary.</h2>
+                    <h2 className={styles.heading}>Let&apos;s Build Something<br />Extraordinary.</h2>
                     <p className={styles.subheading}>
-                        Ready to transform your digital presence? Get in touch and let's discuss how we can help you scale.
+                        Ready to transform your digital presence? Get in touch and let&apos;s discuss how we can help you scale.
                     </p>
 
                     <div className={styles.contactInfo}>
@@ -122,7 +121,7 @@ export const Contact = () => {
                             <CheckCircle2 size={64} className="text-green-400 mb-6" />
                             <h3 className="text-3xl font-bold text-white mb-4">Message Sent!</h3>
                             <p className="text-white/70 max-w-xs mx-auto mb-8">
-                                Thank you for reaching out. We'll verify your request and get back to you within 24 hours.
+                                Thank you for reaching out. We&apos;ll verify your request and get back to you within 24 hours.
                             </p>
                             <Button onClick={() => setSubmitStatus('idle')} variant="secondary">
                                 Send Another Message

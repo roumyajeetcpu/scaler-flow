@@ -33,7 +33,7 @@ export default function Error({
                 </h1>
 
                 <p className="text-lg text-white/60 mb-8">
-                    We encountered an unexpected error. Don't worry, we're on it!
+                    We encountered an unexpected error. Don&apos;t worry, we&apos;re on it!
                 </p>
 
                 {/* Error Details (Development only) */}

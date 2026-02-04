@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { cn } from '@/lib/utils';
 import styles from './Showcase.module.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -59,7 +58,7 @@ export const Showcase = () => {
 
         const ctx = gsap.context(() => {
             // Horizontal scroll animation
-            const scrollTween = gsap.to(container, {
+            gsap.to(container, {
                 x: () => -(container.scrollWidth - window.innerWidth + 100), // 100px buffer
                 ease: "none",
                 scrollTrigger: {
@@ -92,7 +91,7 @@ export const Showcase = () => {
                 <div className={styles.ctaCard}>
                     <Plus size={48} className="text-white/30 mb-4" />
                     <h3 className="text-2xl font-bold text-white mb-2">Your Project</h3>
-                    <p className="text-white/50 text-center px-4">Let's build something amazing together.</p>
+                    <p className="text-white/50 text-center px-4">Let&apos;s build something amazing together.</p>
                 </div>
             </div>
         </section>

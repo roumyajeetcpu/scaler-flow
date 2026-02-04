@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { cn } from '@/lib/utils';
 import styles from './Hero.module.css';
-import { Particles } from '@/components/ui/Particles';
 
 export const Hero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
