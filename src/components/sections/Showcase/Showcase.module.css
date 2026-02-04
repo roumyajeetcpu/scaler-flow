@@ -1,0 +1,149 @@
+.showcaseSection {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    /* background handled globally */
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    color: white;
+    z-index: 10;
+    opacity: 0.1;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.cardsContainer {
+    display: flex;
+    gap: 4rem;
+    padding-left: 10vw;
+    /* Initial offset */
+    padding-right: 10vw;
+    width: max-content;
+    height: 60vh;
+    /* Card height constraint */
+    align-items: center;
+    will-change: transform;
+}
+
+.card {
+    width: 600px;
+    height: 100%;
+    min-width: 300px;
+    background: #111;
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+    cursor: pointer;
+    /* Group hover behavior */
+}
+
+/* Card hover effect handled mostly via Tailwind in component, but base here */
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.ctaCard {
+    width: 400px;
+    height: 80%;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+    background: transparent;
+    cursor: pointer;
+}
+
+.ctaCard:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    /* Purple tint */
+    background: rgba(139, 92, 246, 0.05);
+    transform: scale(0.98);
+}
+
+.projectTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.projectTag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: #e2e2e2;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.projectDesc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    max-width: 90%;
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .showcaseSection {
+        height: auto;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 80px 0;
+    }
+
+    .title {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 40px;
+        opacity: 1;
+        font-size: 3rem;
+        text-align: center;
+        width: 100%;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cardsContainer {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        padding: 0 20px;
+        gap: 32px;
+        transform: none !important;
+        /* Disable horizontal scroll transform */
+    }
+
+    .card {
+        width: 100%;
+        height: 500px;
+        max-width: 100%;
+    }
+
+    .ctaCard {
+        width: 100%;
+        height: 300px;
+    }
+}

@@ -1,0 +1,87 @@
+.navContainer {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.track {
+    position: absolute;
+    right: 7px;
+    /* Center of dot (16px/2 = 8, minus 1px width = 7) */
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+}
+
+.dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    /* Group hover handled via selection */
+}
+
+.dotInner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid transparent;
+}
+
+.dot:hover .dotInner {
+    background: white;
+    transform: scale(1.5);
+}
+
+.active .dotInner {
+    width: 12px;
+    height: 12px;
+    background: #8b5cf6;
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+}
+
+.label {
+    position: absolute;
+    right: 30px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+.dot:hover .label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.active .label {
+    opacity: 1;
+    color: #8b5cf6;
+}
+
+@media (max-width: 768px) {
+    .navContainer {
+        display: none;
+    }
+}

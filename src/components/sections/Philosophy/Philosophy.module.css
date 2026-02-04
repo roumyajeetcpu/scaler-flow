@@ -1,0 +1,392 @@
+.philosophyContainer {
+    /* Background removed to show global StarField */
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 0;
+    /* Reduced padding to fit everything in view if needed */
+    height: 100vh;
+    /* Fixed viewport height for consistency */
+    display: flex;
+    align-items: flex-start;
+    /* Align closer to top so header is stable */
+    justify-content: center;
+    color: white;
+}
+
+/* ===== BACKGROUND & ATMOSPHERE ===== */
+
+.gradientBackground {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 50%, rgba(147, 51, 234, 0.08) 0%, transparent 40%);
+    z-index: 0;
+}
+
+.philosophyGrid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center center;
+    mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.orbitalCanvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===== HEADER SECTION ===== */
+
+.headerSection {
+    position: absolute;
+    top: 5%;
+    /* Moved up from 10% */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 1.5rem;
+}
+
+.sectionEyebrow {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: #6366f1;
+    /* Indigo 500 */
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.sectionTitle {
+    font-size: 3rem;
+    /* Reduced from 3.5rem */
+    line-height: 1.1;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.gradientText {
+    background: linear-gradient(135deg, #a78bfa 0%, #c084fc 50%, #e879f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+
+/* ===== CENTRAL HUB ===== */
+
+.centralHub {
+    position: absolute;
+    top: 62%;
+    /* Moved down from 58% to 62% */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.hubCore {
+    width: 200px;
+    /* Slightly larger hub */
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 0.7) 100%);
+    border: 1px solid rgba(129, 140, 248, 0.15);
+    box-shadow: 0 0 80px rgba(79, 70, 229, 0.1), inset 0 0 50px rgba(79, 70, 229, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.hubContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+}
+
+.hubTitle {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.hubTitleLarge {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.hubSubtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: #818cf8;
+    text-transform: uppercase;
+    font-weight: 600;
+    max-width: 120px;
+}
+
+/* ===== VALUES ORBIT ===== */
+
+.valuesOrbit {
+    position: absolute;
+    top: 62%;
+    /* Matches centralHub */
+    /* Pushed down to clear header */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(32vw, 420px);
+    /* Reduced size further */
+    height: min(32vw, 420px);
+    z-index: 10;
+}
+
+.valuePosition {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    /* Radius = width/2 = 16vw or 210px */
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(-1 * min(16vw, 210px))) rotate(calc(-1 * var(--angle)));
+}
+
+.valueNodeWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 0;
+    /* Wrapper shouldn't take space itself, content does */
+    height: 0;
+}
+
+/* Icon Container */
+.nodeIconContainer {
+    width: 64px;
+    /* Larger hit area */
+    height: 64px;
+    border-radius: 20px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Very subtle border */
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    /* Above lines */
+}
+
+.nodeIconContainer:hover {
+    border-color: var(--node-color);
+    box-shadow: 0 0 30px theme('colors.indigo.500' / 20%);
+    background: rgba(30, 41, 59, 0.95);
+    transform: translateY(-5px);
+}
+
+.nodeIcon {
+    width: 28px;
+    height: 28px;
+    color: white;
+    /* Start white for cleaner look? or keep colored */
+    color: var(--node-color);
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.nodeIconContainer:hover .nodeIcon {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px var(--node-color));
+}
+
+/* Labels */
+.nodeLabel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 280px;
+    /* Wide enough for text */
+    pointer-events: none;
+    z-index: 10;
+}
+
+.valueTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.valueDescription {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    /* Better readability over bg */
+}
+
+/* ===== BOTTOM ELEMENTS ===== */
+
+
+
+.ctaLinkWrapper {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    z-index: 20;
+}
+
+.ctaLink {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.ctaLink:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1280px) {
+    .sectionTitle {
+        font-size: 3rem;
+    }
+
+    .valuesOrbit {
+        width: 450px;
+        height: 450px;
+    }
+
+    .valuePosition {
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-225px) rotate(calc(-1 * var(--angle)));
+    }
+}
+
+@media (max-width: 1024px) {
+    .philosophyContainer {
+        min-height: 800px;
+        height: auto;
+        padding: 6rem 0;
+    }
+
+    .headerSection {
+        top: 6rem;
+        position: absolute;
+    }
+
+    .valuesOrbit {
+        top: 55%;
+        width: 400px;
+        height: 400px;
+    }
+
+    .centralHub {
+        top: 55%;
+    }
+
+    .valuePosition {
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-200px) rotate(calc(-1 * var(--angle)));
+    }
+
+    .sectionTitle {
+        font-size: 2.5rem;
+    }
+
+    .valueTitle {
+        font-size: 1.1rem;
+    }
+
+    .valueDescription {
+        font-size: 0.8rem;
+    }
+
+    .nodeIconContainer {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+@media (max-width: 768px) {
+    .headerSection {
+        top: 5rem;
+    }
+
+    .sideNav {
+        display: none;
+    }
+
+    .valuesOrbit {
+        top: 52%;
+        width: 340px;
+        height: 340px;
+    }
+
+    .centralHub {
+        top: 52%;
+    }
+
+    .hubCore {
+        width: 160px;
+        height: 160px;
+    }
+
+    .valuePosition {
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-170px) rotate(calc(-1 * var(--angle)));
+    }
+
+
+
+    .ctaLinkWrapper {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 2rem;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}

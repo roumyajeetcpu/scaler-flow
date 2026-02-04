@@ -1,0 +1,17 @@
+.capabilitiesContainer {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    /* Background handled by tailwind classes */
+}
+
+/* Hide scrollbar for the horizontal container if ever needed */
+.hideScrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hideScrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

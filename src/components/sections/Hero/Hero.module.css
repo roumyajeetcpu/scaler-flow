@@ -1,0 +1,76 @@
+.heroContainer {
+    perspective: 1000px;
+    /* background removed to show global StarField */
+    overflow: hidden;
+    position: relative;
+}
+
+.heroContainer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(26, 10, 46, 0.8) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gradientText {
+    background: linear-gradient(135deg,
+            #8b5cf6 0%,
+            #3b82f6 25%,
+            #0ea5e9 50%,
+            #06b6d4 75%,
+            #8b5cf6 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: liquidFlow 8s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
+}
+
+.letter {
+    display: inline-block;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+@keyframes liquidFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.scrollIndicator {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0) translateX(-50%);
+    }
+
+    40% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+
+    60% {
+        transform: translateY(-5px) translateX(-50%);
+    }
+}
