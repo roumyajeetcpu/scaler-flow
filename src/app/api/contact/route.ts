@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { contactSchema } from '@/lib/validations/contact';
 import { Resend } from 'resend';
+import { logger } from '@/lib/logger';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
 
         // If Resend API key is not set, just log and return success (for dev without key)
         if (!process.env.RESEND_API_KEY) {
-            console.log('Contact form submission (Mock):', body);
+            logger.info('Contact form submission (Mock):', body);
             await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
             return NextResponse.json({ success: true });
         }

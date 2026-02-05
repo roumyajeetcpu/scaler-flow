@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Logger utility that respects production environment
  * Automatically disables console logs in production
