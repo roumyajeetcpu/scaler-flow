@@ -9,7 +9,6 @@ const nextConfig = {
         minimumCacheTTL: 60,
     },
     experimental: {
-        optimizeCss: true,
     },
     async headers() {
         return [
