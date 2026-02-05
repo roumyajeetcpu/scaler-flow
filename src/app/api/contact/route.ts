@@ -3,7 +3,7 @@ import { contactSchema } from '@/lib/validations/contact';
 import { Resend } from 'resend';
 import { logger } from '@/lib/logger';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 export async function POST(req: Request) {
     try {
@@ -16,6 +16,8 @@ export async function POST(req: Request) {
             await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
             return NextResponse.json({ success: true });
         }
+
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
         const { data, error } = await resend.emails.send({
             from: 'Contact Form <onboarding@resend.dev>', // Update with verified domain
