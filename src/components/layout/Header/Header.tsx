@@ -52,17 +52,9 @@ export const Header = () => {
                     </Button>
                 </nav>
 
-                {/* Mobile Menu Toggle */}
-                <button
-                    className="md:hidden z-50 text-white"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                    {isMobileMenuOpen ? 'CLOSE' : 'MENU'}
-                </button>
-
                 {/* Mobile Nav Overlay */}
                 <div className={cn(
-                    "fixed inset-0 bg-black flex flex-col items-center justify-center gap-8 transition-transform duration-500 ease-in-out md:hidden",
+                    "fixed inset-0 bg-black flex flex-col items-center justify-center gap-8 transition-transform duration-500 ease-in-out md:hidden z-40",
                     isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
                 )}>
                     {navLinks.map((link) => (
@@ -76,6 +68,14 @@ export const Header = () => {
                         </Link>
                     ))}
                 </div>
+
+                {/* Mobile Menu Toggle */}
+                <button
+                    className="md:hidden relative z-50 text-white font-bold tracking-widest"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                    {isMobileMenuOpen ? 'CLOSE' : 'MENU'}
+                </button>
             </div>
         </header>
     );

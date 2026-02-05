@@ -84,16 +84,16 @@ export const Hero = () => {
         <section
             id="hero"
             ref={containerRef}
-            className={cn("relative h-screen w-full flex flex-col items-center justify-center overflow-hidden", styles.heroContainer)}
+            className={cn("relative h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden", styles.heroContainer)}
         >
             {/* Background Elements (Global StarField is visible) */}
 
             {/* Main Typography */}
-            <div className="z-10 perspective-1000">
+            <div className="z-10 perspective-1000 px-4">
                 <h1
                     ref={textRef}
                     className={cn(
-                        "text-[clamp(4rem,15vw,10rem)] leading-[0.9] font-black text-center tracking-tighter cursor-default transform-style-3d",
+                        "text-[clamp(2.5rem,15vw,10rem)] leading-[0.9] font-black text-center tracking-tighter cursor-default transform-style-3d",
                         styles.gradientText
                     )}
                     aria-label={titleText}

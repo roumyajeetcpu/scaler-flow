@@ -351,7 +351,7 @@
 
 @media (max-width: 768px) {
     .headerSection {
-        top: 5rem;
+        top: 3.5rem;
     }
 
     .sideNav {
@@ -360,8 +360,8 @@
 
     .valuesOrbit {
         top: 52%;
-        width: 340px;
-        height: 340px;
+        width: 280px;
+        height: 280px;
     }
 
     .centralHub {
@@ -369,23 +369,40 @@
     }
 
     .hubCore {
-        width: 160px;
-        height: 160px;
+        width: 130px;
+        height: 130px;
+    }
+
+    .hubTitleLarge {
+        font-size: 1.25rem;
     }
 
     .valuePosition {
-        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-170px) rotate(calc(-1 * var(--angle)));
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-140px) rotate(calc(-1 * var(--angle)));
     }
 
+    .nodeLabel {
+        width: 160px;
+    }
 
+    .valueTitle {
+        font-size: 0.9rem;
+    }
+
+    .valueDescription {
+        display: none;
+        /* Hide description on mobile to save space, or reduce font size significantly */
+    }
 
     .ctaLinkWrapper {
         bottom: 1.5rem;
-        right: 1.5rem;
+        right: 50%;
+        transform: translateX(50%);
+        width: max-content;
     }
 
     .sectionTitle {
-        font-size: 2rem;
+        font-size: 1.75rem;
         max-width: 300px;
         margin: 0 auto;
     }
