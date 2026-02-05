@@ -11,7 +11,7 @@ interface Ripple {
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, variant = 'primary', size = 'md', isLoading, children, leftIcon, rightIcon, enableMagnetic = true, enableRipple = true, ...props }, ref) => {
-        const buttonRef = useRef<HTMLButtonElement>(null);
+        const buttonRef = useRef<HTMLButtonElement | null>(null);
         const [ripples, setRipples] = useState<Ripple[]>([]);
         const [magneticOffset, setMagneticOffset] = useState({ x: 0, y: 0 });
 
