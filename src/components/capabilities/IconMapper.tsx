@@ -2,7 +2,7 @@
 import React from 'react';
 import {
     Code2, Smartphone, Bot, Rocket, Star, Zap, Shield,
-    ShoppingCart, Edit, Layers, Apple, Refresh,
+    ShoppingCart, Edit, Layers, Apple, RefreshCw,
     MessageCircle, Settings, Cpu, DollarSign, Clock,
     Activity, TrendingUp, CheckCircle, Trophy, Users,
     Code, Lock
@@ -34,7 +34,7 @@ export const iconMap: Record<string, React.ElementType> = {
     "smartphone": Smartphone,
     "apple": Apple,
     "android": Smartphone, // Fallback if no specific Android icon
-    "refresh": Refresh,
+    "refresh": RefreshCw,
     "expertise": Star, // Mapping expertise to Star
 
     // AI
