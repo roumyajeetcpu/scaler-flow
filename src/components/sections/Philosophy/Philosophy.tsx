@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import styles from './Philosophy.module.css';
 import gsap from 'gsap';
-import { Cpu, Zap, Layers, Sparkles, ArrowRight } from 'lucide-react';
+import { Cpu, Zap, Layers, Sparkles } from 'lucide-react';
 
 interface ValueData {
     icon: React.ElementType;
@@ -24,7 +24,7 @@ const values: ValueData[] = [
     },
     {
         icon: Zap,
-        text: "Velocity",
+        text: "Speed",
         description: "From concept to production in weeks, not months. Speed without compromise.",
         color: "#a78bfa", // Purple
         angle: 45 // Top-Right
@@ -38,7 +38,7 @@ const values: ValueData[] = [
     },
     {
         icon: Sparkles,
-        text: "Elegance",
+        text: "Precision",
         description: "Sophisticated automation hidden behind a seamless user experience.",
         color: "#e879f9", // Pink
         angle: 135 // Bottom-Right
@@ -102,16 +102,22 @@ const OrbitalConnections = ({ hoveredIndex }: { hoveredIndex: number | null }) =
         resize();
         window.addEventListener('resize', resize);
 
-        // Center calculation needs to match CSS 'top: 62%'
+        // Center calculation needs to match CSS 'top: 50%'
         const centerX = () => canvas.width * 0.5;
-        const centerY = () => canvas.height * 0.62;
+        // On mobile 50%, tablet 55%, desktop 58%
+        const centerY = () => {
+            const w = window.innerWidth;
+            if (w <= 768) return canvas.height * 0.55;
+            if (w <= 1024) return canvas.height * 0.55;
+            return canvas.height * 0.60;
+        };
 
-        // Radius matches CSS: min(32vw, 420px) / 2 = min(16vw, 210px)
+        // Radius matches CSS values exactly to ensure alignment
         const radius = () => {
             const w = window.innerWidth;
-            if (w <= 768) return Math.min(w * 0.34, 150); // Match mobile CSS
-            if (w <= 1024) return Math.min(w * 0.25, 180); // Match tablet CSS
-            return Math.min(w * 0.16, 210);
+            if (w <= 768) return 140; // Match mobile CSS (280px width)
+            if (w <= 1024) return 200; // Match tablet CSS (400px width)
+            return Math.min(w * 0.15, 180); // Match desktop CSS (min(30vw, 360px))
         };
 
         signalPulsesRef.current = [];
@@ -253,8 +259,8 @@ const OrbitalConnections = ({ hoveredIndex }: { hoveredIndex: number | null }) =
     return <canvas ref={canvasRef} className={styles.orbitalCanvas} />;
 };
 
-const ValueNode = ({ value, index, delay, isDimmed, onHover }: {
-    value: ValueData; index: number; delay: number; isDimmed: boolean; onHover: (idx: number | null) => void;
+const ValueNode = ({ value, index, delay, isDimmed, isHovered, onHover }: {
+    value: ValueData; index: number; delay: number; isDimmed: boolean; isHovered: boolean; onHover: (idx: number | null) => void;
 }) => {
     const nodeRef = useRef<HTMLDivElement>(null);
     const labelRef = useRef<HTMLDivElement>(null);
@@ -297,14 +303,16 @@ const ValueNode = ({ value, index, delay, isDimmed, onHover }: {
     };
 
     return (
-        <div className={styles.valueNodeWrapper}>
+        <div
+            className={styles.valueNodeWrapper}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
             {/* Icon Node */}
             <div
                 ref={nodeRef}
                 className={styles.nodeIconContainer}
                 style={{ '--node-color': value.color } as React.CSSProperties}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
             >
                 <value.icon className={styles.nodeIcon} />
             </div>
@@ -313,13 +321,14 @@ const ValueNode = ({ value, index, delay, isDimmed, onHover }: {
             <div
                 ref={labelRef}
                 className={styles.nodeLabel}
-                style={{
-                    top: isTop ? 'auto' : '3.5rem', // Push bottom labels down by fixed amount
-                    bottom: isTop ? '3.5rem' : 'auto', // Push top labels up by fixed amount
-                }}
+                style={{}}
+                data-is-top={isTop}
+                data-hovered={isHovered}
             >
                 <h3 className={styles.valueTitle}>{value.text}</h3>
-                <p className={styles.valueDescription}>{value.description}</p>
+                <p className={styles.valueDescription}>
+                    {value.description}
+                </p>
             </div>
         </div>
     );
@@ -356,6 +365,7 @@ export const Philosophy = () => {
                             index={index}
                             delay={index * 0.2}
                             isDimmed={hoveredIndex !== null && hoveredIndex !== index}
+                            isHovered={hoveredIndex === index}
                             onHover={setHoveredIndex}
                         />
                     </div>
@@ -368,18 +378,14 @@ export const Philosophy = () => {
                     <div className={styles.hubContent}>
                         <span className={styles.hubTitle}>ScalerFlow</span>
                         <span className={styles.hubTitleLarge}>Core</span>
-                        <span className={styles.hubSubtitle}>Your AI Automation Backbone</span>
+                        <span className={styles.hubSubtitle}>YOUR AI AUTOMATION BACKBONE</span>
                     </div>
                 </div>
             </div>
 
             {/* Bottom Elements */}
 
-            <div className={styles.ctaLinkWrapper}>
-                <button className={styles.ctaLink}>
-                    View real implementations <ArrowRight className="w-4 h-4 ml-2" />
-                </button>
-            </div>
+
         </section>
     );
 };

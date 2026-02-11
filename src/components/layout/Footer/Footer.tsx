@@ -15,28 +15,25 @@ export const Footer = () => {
                 <div>
                     <h4 className="text-white font-semibold mb-4">Quick Links</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><Link href="#" className="hover:text-white transition-colors">Work</Link></li>
-                        <li><Link href="#" className="hover:text-white transition-colors">Services</Link></li>
-                        <li><Link href="#" className="hover:text-white transition-colors">About</Link></li>
-                        <li><Link href="#" className="hover:text-white transition-colors">Contact</Link></li>
+                        <li><Link href="#showcase" className="hover:text-white transition-colors">Work</Link></li>
+                        <li><Link href="#capabilities" className="hover:text-white transition-colors">Services</Link></li>
+                        <li><Link href="#philosophy" className="hover:text-white transition-colors">About</Link></li>
+                        <li><Link href="#contact" className="hover:text-white transition-colors">Contact</Link></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 className="text-white font-semibold mb-4">Socials</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><a href="#" className="hover:text-white transition-colors">Twitter</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">GitHub</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 className="text-white font-semibold mb-4">Legal</h4>
                     <ul className="space-y-2 text-sm">
-                        <li><Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                        <li><Link href="#" className="hover:text-white transition-colors">Terms of Service</Link></li>
+                        <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                        <li><Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
                     </ul>
                 </div>
             </div>

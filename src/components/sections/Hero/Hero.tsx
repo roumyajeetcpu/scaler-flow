@@ -18,6 +18,7 @@ export const Hero = () => {
         // Initial entrance animations
         const ctx = gsap.context(() => {
             // Animate letters staggering in
+            // Animate letters staggering in
             gsap.from(letterRefs.current, {
                 y: 100,
                 opacity: 0,
@@ -45,6 +46,7 @@ export const Hero = () => {
                 delay: 2,
             });
         }, containerRef);
+
 
         return () => ctx.revert();
     }, []);
@@ -113,7 +115,7 @@ export const Hero = () => {
             {/* Tagline */}
             <p
                 ref={taglineRef}
-                className="z-10 mt-8 text-xl md:text-2xl font-light text-white/70 tracking-widest uppercase text-center max-w-2xl px-4"
+                className="z-10 mt-8 text-base sm:text-xl md:text-2xl font-light text-white/70 tracking-wider md:tracking-widest uppercase text-center max-w-2xl px-4"
             >
                 We build digital experiences that flow
             </p>

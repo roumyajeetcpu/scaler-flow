@@ -107,11 +107,15 @@
 
 @media (max-width: 768px) {
     .showcaseSection {
-        height: auto;
+        height: 100dvh;
+        /* Use dynamic viewport height for mobile */
         flex-direction: column;
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
+        /* Hide overflow to let GSAP handle it via transform */
         padding: 80px 0;
+        justify-content: flex-start;
+        align-items: flex-start;
+        /* Align to top/start to avoid centering the wide strip */
     }
 
     .title {
@@ -127,23 +131,30 @@
     }
 
     .cardsContainer {
-        flex-direction: column;
-        width: 100%;
+        flex-direction: row;
+        /* Keep row for horizontal layout */
+        width: max-content;
+        /* Ensure it takes full width of content */
         height: auto;
-        padding: 0 20px;
-        gap: 32px;
-        transform: none !important;
-        /* Disable horizontal scroll transform */
+        padding: 0 5vw;
+        /* Smaller padding */
+        gap: 20px;
+        /* Enable transform for GSAP */
     }
 
     .card {
-        width: 100%;
-        height: 500px;
-        max-width: 100%;
+        width: 300px;
+        /* Fixed width for better proportions */
+        min-width: 300px;
+        flex-shrink: 0;
+        height: 400px;
+        /* Reduced height for mobile */
     }
 
     .ctaCard {
-        width: 100%;
-        height: 300px;
+        width: 300px;
+        min-width: 300px;
+        flex-shrink: 0;
+        height: 400px;
     }
 }

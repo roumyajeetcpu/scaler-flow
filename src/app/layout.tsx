@@ -84,7 +84,7 @@ import { StarField } from '@/components/ui/StarField';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={inter.variable}>
-            <body>
+            <body suppressHydrationWarning>
                 <SmoothScroll />
                 <ScrollProgress />
                 <Cursor />

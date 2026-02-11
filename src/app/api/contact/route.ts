@@ -1,45 +1,75 @@
 import { NextResponse } from 'next/server';
-import { contactSchema } from '@/lib/validations/contact';
 import { Resend } from 'resend';
-import { logger } from '@/lib/logger';
+import { contactSchema } from '@/lib/validations/contact';
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-
-export async function POST(req: Request) {
+export async function POST(request: Request) {
     try {
-        const json = await req.json();
-        const body = contactSchema.parse(json);
+        const body = await request.json();
 
-        // If Resend API key is not set, just log and return success (for dev without key)
-        if (!process.env.RESEND_API_KEY) {
-            logger.info('Contact form submission (Mock):', body);
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
-            return NextResponse.json({ success: true });
+        // Validate input
+        const result = contactSchema.safeParse(body);
+        if (!result.success) {
+            return NextResponse.json(
+                { error: 'Invalid input', details: result.error.errors },
+                { status: 400 }
+            );
         }
 
-        const resend = new Resend(process.env.RESEND_API_KEY);
+        const { name, email, company, message } = result.data;
 
+        // Check for environment variables
+        if (!process.env.RESEND_API_KEY) {
+            console.error('Missing Resend API configuration');
+            return NextResponse.json(
+                { error: 'Server configuration error' },
+                { status: 500 }
+            );
+        }
+
+        // Send email using Resend
         const { data, error } = await resend.emails.send({
-            from: 'Contact Form <onboarding@resend.dev>', // Update with verified domain
-            to: 'hello@scalerflow.com', // Update with actual email
-            subject: `New message from ${body.name}`,
+            from: 'Scaler Flow <onboarding@resend.dev>',
+            to: ['roumyajeetbanerjee@gmail.com'], // Temporarily using verified email for testing
+            reply_to: email,
+            subject: `New Contact Form Submission from ${name}`,
             text: `
-        Name: ${body.name}
-        Email: ${body.email}
-        Company: ${body.company || 'N/A'}
-        Message: ${body.message}
-      `,
+Name: ${name}
+Email: ${email}
+Company: ${company || 'N/A'}
+
+Message:
+${message}
+            `,
+            html: `
+<h3>New Contact Form Submission</h3>
+<p><strong>Name:</strong> ${name}</p>
+<p><strong>Email:</strong> ${email}</p>
+<p><strong>Company:</strong> ${company || 'N/A'}</p>
+<br/>
+<p><strong>Message:</strong></p>
+<p>${message.replace(/\n/g, '<br>')}</p>
+            `,
         });
 
         if (error) {
-            return NextResponse.json({ error }, { status: 500 });
+            console.error('Resend error:', error);
+            return NextResponse.json(
+                { error: 'Failed to send message' },
+                { status: 500 }
+            );
         }
 
-        return NextResponse.json({ success: true, data });
+        return NextResponse.json(
+            { message: 'Message sent successfully', id: data?.id },
+            { status: 200 }
+        );
     } catch (error) {
-        if (error instanceof Error) {
-            return NextResponse.json({ error: error.message }, { status: 400 });
-        }
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        console.error('Error sending email:', error);
+        return NextResponse.json(
+            { error: 'Failed to send message' },
+            { status: 500 }
+        );
     }
 }

@@ -22,12 +22,6 @@ module.exports = {
                 '18': '4.5rem',
                 '88': '22rem',
             },
-            animation: {
-                'float': 'float 6s ease-in-out infinite',
-                'shimmer': 'shimmer 2s linear infinite',
-                'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-                'ripple': 'ripple 0.6s ease-out',
-            },
             keyframes: {
                 float: {
                     '0%, 100%': { transform: 'translateY(0)' },
@@ -45,6 +39,22 @@ module.exports = {
                     '0%': { transform: 'scale(0)', opacity: '1' },
                     '100%': { transform: 'scale(4)', opacity: '0' },
                 },
+                "accordion-down": {
+                    from: { height: "0" },
+                    to: { height: "var(--radix-accordion-content-height)" },
+                },
+                "accordion-up": {
+                    from: { height: "var(--radix-accordion-content-height)" },
+                    to: { height: "0" },
+                },
+            },
+            animation: {
+                'float': 'float 6s ease-in-out infinite',
+                'shimmer': 'shimmer 2s linear infinite',
+                'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                'ripple': 'ripple 0.6s ease-out',
+                "accordion-down": "accordion-down 0.2s ease-out",
+                "accordion-up": "accordion-up 0.2s ease-out",
             },
             backdropBlur: {
                 xs: '2px',

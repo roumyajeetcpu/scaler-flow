@@ -69,9 +69,11 @@ export const Process = () => {
 
         if (!section || !container || !line) return;
 
-        const ctx = gsap.context(() => {
+        const mm = gsap.matchMedia();
+
+        const setupAnimations = () => {
             // Desktop Animation
-            if (window.innerWidth > 768) {
+            mm.add("(min-width: 769px)", () => {
                 const totalScroll = container.scrollWidth - window.innerWidth + 200;
 
                 const tl = gsap.timeline({
@@ -81,6 +83,7 @@ export const Process = () => {
                         start: "top top",
                         end: `+=${totalScroll}`,
                         scrub: 1,
+                        invalidateOnRefresh: true,
                     }
                 });
 
@@ -114,37 +117,45 @@ export const Process = () => {
                         }
                     });
                 });
-            } else {
-                // Mobile Animation (Vertical)
+            });
+
+            // Mobile Animation (Vertical)
+            mm.add("(max-width: 768px)", () => {
                 // Simple scroll reveal
                 steps.forEach((_, i) => {
-                    gsap.from(stepRefs.current[i], {
-                        opacity: 0.3,
-                        y: 50,
-                        scrollTrigger: {
-                            trigger: stepRefs.current[i],
-                            start: "top 80%",
-                            toggleActions: "play none none reverse",
-                            toggleClass: { targets: stepRefs.current[i], className: styles.active }
+                    gsap.fromTo(stepRefs.current[i],
+                        { opacity: 0.3, y: 50 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.5,
+                            scrollTrigger: {
+                                trigger: stepRefs.current[i],
+                                start: "top 85%",
+                                toggleActions: "play none none reverse",
+                                toggleClass: { targets: stepRefs.current[i], className: styles.active }
+                            }
                         }
-                    });
-
-                    // Vertical line could fill based on overall section progress
-                    gsap.to(line, {
-                        height: "100%",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: container,
-                            start: "top center",
-                            end: "bottom center",
-                            scrub: 1,
-                        }
-                    });
+                    );
                 });
-            }
-        }, section);
 
-        return () => ctx.revert();
+                // Vertical line could fill based on overall section progress
+                gsap.to(line, {
+                    height: "100%",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top center",
+                        end: "bottom center",
+                        scrub: 1,
+                    }
+                });
+            });
+        };
+
+        setupAnimations();
+
+        return () => mm.revert();
     }, []);
 
     return (

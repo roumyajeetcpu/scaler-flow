@@ -78,7 +78,7 @@ export const Contact = () => {
             <Particles />
 
             <div className={styles.container}>
-                <div>
+                <div className={styles.textColumn}>
                     <h2 className={styles.heading}>Let&apos;s Build Something<br />Extraordinary.</h2>
                     <p className={styles.subheading}>
                         Ready to transform your digital presence? Get in touch and let&apos;s discuss how we can help you scale.
@@ -89,15 +89,15 @@ export const Contact = () => {
                             <span className={styles.infoIcon}>
                                 <Mail size={24} />
                             </span>
-                            <a href="mailto:hello@scalerflow.com" className="hover:text-white transition-colors">
-                                hello@scalerflow.com
+                            <a href="mailto:scalerflow@outlook.com" className="hover:text-white transition-colors">
+                                scalerflow@outlook.com
                             </a>
                         </div>
                         <div className={styles.infoItem}>
                             <span className={styles.infoIcon}>
                                 <MapPin size={24} />
                             </span>
-                            <span>San Francisco, CA</span>
+                            <span>Bangalore, India</span>
                         </div>
 
                         <div className="mt-8 pt-8 border-t border-white/10">

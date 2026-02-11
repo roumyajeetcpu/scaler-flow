@@ -5,7 +5,8 @@ import { cn } from '@/lib/utils';
 import styles from './Capabilities.module.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Code2, Palette, ShoppingCart, Smartphone, Star, TrendingUp, ArrowRight } from 'lucide-react';
+import { Code2, Smartphone, ArrowRight, Bot } from 'lucide-react';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,47 +17,26 @@ const services = [
         description: "High-performance, scalable web solutions that power the future.",
         icon: <Code2 size={40} strokeWidth={1.5} />,
         tags: ["Next.js", "React", "Node.js"],
-        color: "#60A5FA" // blue-400
+        color: "#60A5FA", // blue-400
+        link: "/capabilities/web-development"
     },
     {
         id: "02",
-        title: "UI/UX Design",
-        description: "User-centered design that delights, engages, and converts.",
-        icon: <Palette size={40} strokeWidth={1.5} />,
-        tags: ["Figma", "Prototyping", "User Research"],
-        color: "#C084FC" // purple-400
-    },
-    {
-        id: "03",
-        title: "E-commerce",
-        description: "Robust online stores designed to drive sales and growth.",
-        icon: <ShoppingCart size={40} strokeWidth={1.5} />,
-        tags: ["Shopify", "WooCommerce", "Stripe"],
-        color: "#F472B6" // pink-400
-    },
-    {
-        id: "04",
         title: "Mobile Apps",
         description: "Native and cross-platform mobile experiences for iOS & Android.",
         icon: <Smartphone size={40} strokeWidth={1.5} />,
         tags: ["React Native", "Flutter", "iOS"],
-        color: "#22D3EE" // cyan-400
+        color: "#22D3EE", // cyan-400
+        link: "/capabilities/mobile-apps"
     },
     {
-        id: "05",
-        title: "Branding",
-        description: "Memorable brand identities that stand out in a crowded market.",
-        icon: <Star size={40} strokeWidth={1.5} />,
-        tags: ["Strategy", "Identity", "Guidelines"],
-        color: "#818CF8" // indigo-400
-    },
-    {
-        id: "06",
-        title: "SEO & Growth",
-        description: "Data-driven strategies to increase visibility and ROI.",
-        icon: <TrendingUp size={40} strokeWidth={1.5} />,
-        tags: ["SEO", "Analytics", "Marketing"],
-        color: "#34D399" // emerald-400
+        id: "03",
+        title: "AI Automation",
+        description: "Intelligent workflows that eliminate repetitive tasks and scale your operations.",
+        icon: <Bot size={40} strokeWidth={1.5} />,
+        tags: ["OpenAI", "Claude", "Make.com"],
+        color: "#A855F7", // purple-500
+        link: "/capabilities/ai-automation"
     }
 ];
 
@@ -87,31 +67,22 @@ export const Capabilities = () => {
             });
 
             // Horizontal Scroll
-            // We need to calculate the total width of the container minus the viewport width
             const scrollWidth = container.scrollWidth;
             const clientWidth = window.innerWidth;
+            const totalScroll = scrollWidth - clientWidth + 100; // Buffer
 
-            // On mobile, we might just use normal vertical flow, but for "mindblowing" let's try horizontal on all or switch based on query.
-            // A truly responsive horizontal scroll often converts to vertical on mobile for UX.
-            // Let's check width.
-            const isMobile = window.innerWidth < 768;
-
-            if (!isMobile) {
-                const totalScroll = scrollWidth - clientWidth + 100; // Buffer
-
-                gsap.to(container, {
-                    x: -totalScroll,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: section,
-                        pin: true,
-                        start: "top top",
-                        end: `+=${totalScroll}`,
-                        scrub: 1,
-                        anticipatePin: 1
-                    }
-                });
-            }
+            gsap.to(container, {
+                x: -totalScroll,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    pin: true,
+                    start: "top top",
+                    end: `+=${totalScroll * 2}`, // Multiply by 2 for slower scroll
+                    scrub: 1,
+                    anticipatePin: 1
+                }
+            });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -144,12 +115,13 @@ export const Capabilities = () => {
 
                 <div
                     ref={containerRef}
-                    className="flex flex-col md:flex-row gap-8 md:gap-12 px-6 md:px-[50vw] pt-20 md:pt-0 items-start md:items-center w-full md:w-max md:h-screen"
+                    className="flex flex-row gap-4 md:gap-12 px-6 md:px-[50vw] pt-4 md:pt-0 items-center w-full md:overflow-visible md:w-max md:h-screen hide-scrollbar"
                 >
                     {services.map((service, index) => (
-                        <div
+                        <Link
                             key={index}
-                            className="group relative w-full md:w-[450px] aspect-[4/5] bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-12 overflow-hidden hover:bg-white/10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/10"
+                            href={service.link}
+                            className="group relative flex-shrink-0 w-[85vw] md:w-[450px] h-[60vh] md:h-auto md:aspect-[4/5] bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-12 overflow-hidden hover:bg-white/10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/10 block"
                         >
                             {/* Large Background Number */}
                             <span className="absolute -bottom-10 -right-4 text-[12rem] font-black text-white/5 group-hover:text-white/10 transition-colors select-none leading-none">
@@ -197,7 +169,7 @@ export const Capabilities = () => {
                                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                                 style={{ background: `radial-gradient(circle at top right, ${service.color}20, transparent 60%)` }}
                             />
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

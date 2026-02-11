@@ -57,16 +57,16 @@ export const Showcase = () => {
         if (!section || !container) return;
 
         const ctx = gsap.context(() => {
-            // Horizontal scroll animation
             gsap.to(container, {
                 x: () => -(container.scrollWidth - window.innerWidth + 100), // 100px buffer
                 ease: "none",
                 scrollTrigger: {
                     trigger: section,
                     start: "top top",
-                    end: "+=3000", // Drag out the scroll length
+                    end: () => `+=${(container.scrollWidth - window.innerWidth + 100) * 2}`, // Multiply by 2 for slower/more robust scroll
                     pin: true,
                     scrub: 1,
+                    anticipatePin: 1, // Helps with pinning on mobile
                     invalidateOnRefresh: true,
                 }
             });
@@ -81,7 +81,7 @@ export const Showcase = () => {
 
             <div ref={containerRef} className={styles.cardsContainer}>
                 {projects.map((project) => (
-                    <div key={project.id} className="group h-full">
+                    <div key={project.id} className="group h-full flex-shrink-0">
                         {/* Added 'group' class for hover effects in ProjectCard */}
                         <ProjectCard project={project} />
                     </div>

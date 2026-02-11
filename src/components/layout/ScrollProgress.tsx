@@ -10,7 +10,6 @@ const sections = [
     { id: 'hero', label: 'Home' },
     { id: 'philosophy', label: 'Philosophy' },
     { id: 'capabilities', label: 'Capabilities' },
-    { id: 'showcase', label: 'Showcase' },
     { id: 'process', label: 'Process' },
     { id: 'contact', label: 'Contact' }
 ];
@@ -36,13 +35,18 @@ export const ScrollProgress = () => {
             if (element) {
                 ScrollTrigger.create({
                     trigger: element,
-                    start: 'top center',
+                    start: 'top 20%',
                     end: 'bottom center',
                     onEnter: () => setActiveId(id),
                     onEnterBack: () => setActiveId(id),
                 });
             }
         });
+
+        // Force refresh after a slight delay to account for pinned sections
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 1000);
 
         return () => {
             // ScrollTrigger.getAll().forEach(t => t.kill()); // Be careful not to kill other triggers

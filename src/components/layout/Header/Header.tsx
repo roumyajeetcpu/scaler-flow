@@ -18,7 +18,6 @@ export const Header = () => {
     }, []);
 
     const navLinks = [
-        { name: 'Work', href: '#work' }, // Ideally use IDs or routes
         { name: 'Capabilities', href: '#capabilities' },
         { name: 'Process', href: '#process' },
         { name: 'Contact', href: '#contact' },
@@ -47,21 +46,24 @@ export const Header = () => {
                             {link.name}
                         </Link>
                     ))}
-                    <Button size="sm" variant="primary">
-                        Start Project
-                    </Button>
+                    <Link href="#contact">
+                        <Button size="sm" variant="primary">
+                            Start Project
+                        </Button>
+                    </Link>
                 </nav>
 
                 {/* Mobile Nav Overlay */}
+                {/* Mobile Nav Overlay */}
                 <div className={cn(
-                    "fixed inset-0 bg-black flex flex-col items-center justify-center gap-8 transition-transform duration-500 ease-in-out md:hidden z-40",
-                    isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+                    "fixed inset-0 bg-black flex flex-col items-center justify-center gap-8 transition-all duration-500 ease-in-out md:hidden z-40",
+                    isMobileMenuOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-full opacity-0 invisible"
                 )}>
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className="text-4xl font-black text-white hover:text-purple-500 transition-colors"
+                            className="text-3xl font-black text-white hover:text-purple-500 transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             {link.name}
@@ -77,6 +79,6 @@ export const Header = () => {
                     {isMobileMenuOpen ? 'CLOSE' : 'MENU'}
                 </button>
             </div>
-        </header>
+        </header >
     );
 };
