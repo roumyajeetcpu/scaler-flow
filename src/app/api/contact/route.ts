@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { contactSchema } from '@/lib/validations/contact';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
     try {
@@ -27,6 +27,9 @@ export async function POST(request: Request) {
                 { status: 500 }
             );
         }
+
+        // Create resend instance inside the handler to avoid build-time issues
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
         // Send email using Resend
         const { data, error } = await resend.emails.send({
